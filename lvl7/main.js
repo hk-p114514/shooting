@@ -6,7 +6,7 @@ let mouse = new Point();
 let fire = false;
 let startTime;
 let isRunning = false;
-const  timeOutId;
+let  timeOutId;
 const reset = document.getElementById('reset');
 //  -- main ----------------------
 window.onload = () => {
@@ -58,7 +58,7 @@ window.onload = () => {
     let boss = new Boss();
 
     // ボスのビットを初期化
-    const bossBitCount = 6;
+    const bossBitCount = 8;
     let bit = new Array(bossBitCount);
     for(i = 0; i < bossBitCount; i++){
         bit[i] = new Bit();
@@ -136,7 +136,7 @@ window.onload = () => {
             ctx.fill();
             
  // ----------------------------------------------------------------
-            if(counter % 100 === 0 && counter < 1800){
+            if(counter % 100 === 0 && counter < 2200){
                     for(i = 0; i < enemyMaxCount; i++){
                         if(!enemy[i].alive){
                             let enemySize = 10;
@@ -170,7 +170,7 @@ window.onload = () => {
                     }
                 
             }
-            if(counter === 300){
+            if(counter === 2300){
                 // ボスの登場
                 p.x = screenCanvas.width / 2;
                 p.y = -80;
@@ -223,8 +223,8 @@ window.onload = () => {
                         for(j = 0; j < enemyShotMaxCount; j++){
 
                             if(!enemyShot[j].alive){
-                                let shotSpeed = Math.floor(Math.random()*(7-1));
-                                console.log(shotSeed);
+                                const shotSpeeds = [0, 1, 2, 3, 3, 3, 3, 3, 4, 4, 5, 5, 5, 10]
+                                let shotSpeed = getRandomNum(0, shotSpeeds.length);
                                 // 敵キャラクターの弾幕を新規にセットする
                                 p = enemy[i].position.distance(chara.position);
                                 p.normalize();
@@ -308,7 +308,7 @@ window.onload = () => {
                 if(bit[i].param % 30 === 0){
                     for(j = 0; j < enemyShotMaxCount; j++){
                         if(!enemyShot[j].alive){
-                            let enterShotSpeed = getRandomNum(0,2);
+                            let enterShotSpeed = getRandomNum(0,bitShotSpeed.length);
                             let shotSpeed = bitShotSpeed[enterShotSpeed];
                             // 新規に弾幕を設定
                             p = bit[i].position.distance(chara.position);
